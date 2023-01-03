@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.views.generic import TemplateView
 from django.utils.decorators import method_decorator
+from account.models import User
 
 
 from core.mixins import(
@@ -133,15 +135,16 @@ class SignInView(AjaxFormMixin, FormView):
 			#attempt to authenticate user
 			user = authenticate(self.request, username=username, password=password)
 			if user is not None:
-				login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+				login(self.request, user)
 				result = "Success"
 				message = 'You are now logged in'
 			else:
 				message = FormErrors(form)
 			data = {'result': result, 'message': message}
-			return JsonResponse(data)
+			return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 		return response
-
+    # def is_ajax(request):
+    # return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
 

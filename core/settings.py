@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheader',
     'account',
     'prodect',
     'promotion',
@@ -43,6 +44,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+ 
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -63,7 +68,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+
+WSGI_APPLICATION = 'application'
 
 
 # Database
@@ -137,10 +143,14 @@ BASKET_SESSION_ID = "basket"
 
 
 
-# Custom user model
-AUTH_USER_MODEL = "designer.Customer"
-LOGIN_REDIRECT_URL = "/designer/dashboard"
-LOGIN_URL = "/designer/login/"
+# # Custom user model
+# AUTH_USER_MODEL = "designer.Customer"
+# LOGIN_REDIRECT_URL = "/designer/dashboard"
+# LOGIN_URL = "/designer/login/"
+
+LOGIN_URL = "customer:sign-in"
+LOGIN_REDIRECT_URL = "customer:account"
+LOGOUT_REDIRECT_URL = "costomer:sign-in"
 
 
 # Email setting
@@ -154,3 +164,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 BASE_COUNTRY = "ET" 
 
 AUTH_USER_MODEL = 'account.User'
+CORS_ORIGIN_ALLOW_ALL = True

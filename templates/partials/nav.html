@@ -38,7 +38,7 @@
   {% if "sign-in" in request.path %}
   <li><a class="active" href="{% url 'customer:sign-in' %}">Sign In</a></li>
   {% else %}
-  <li><a href="{% url 'users:sign-in' %}">Sign In</a></li>
+  <li><a href="{% url 'customer:sign-in' %}">Sign In</a></li>
   {% endif %}
   
   {% if "sign-up" in request.path %}
