@@ -2,14 +2,14 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Customer
+from customer.models import UserProfile
 
 
 class UserForm(UserCreationForm):
 	'''
 	Form that uses built-in UserCreationForm to handel user creation
 	'''
-	first_name = forms.CharField(max_length=30, required=True,
+	name = forms.CharField(max_length=30, required=True,
 		widget=forms.TextInput(attrs={'placeholder': '*Your first name..'}))
 	last_name = forms.CharField(max_length=30, required=True,
 		widget=forms.TextInput(attrs={'placeholder': '*Your last name..'}))
@@ -28,7 +28,7 @@ class UserForm(UserCreationForm):
 
 	class Meta:
 		model = User
-		fields = ('username', 'first_name', 'last_name','mobile', 'password1', 'password2', )
+		fields = ('username', 'name', 'last_name','mobile', 'password1', 'password2', )
 
 
 
@@ -46,7 +46,7 @@ class AuthForm(AuthenticationForm):
 		model = User
 		fields = ('username','password', )
 
-class CustomerProfileForm(forms.ModelForm):
+class UserProfileForm(forms.ModelForm):
 	'''
 	Basic model-form for our user profile that extends Django user model.
 	
@@ -62,7 +62,7 @@ class CustomerProfileForm(forms.ModelForm):
 	gender = forms.CharField(max_length=50, required=True, widget = forms.HiddenInput())
 
 	class Meta:
-		model = Customer
+		model = UserProfile
 		fields = ('address', 'town', 'county', 'post_code',
 		 'country', 'longitude', 'latitude','delivery_instructions','gender',)
 
@@ -83,6 +83,6 @@ class DesignerProfileForm(forms.ModelForm):
 	gender = forms.CharField(max_length=50, required=True, widget = forms.HiddenInput())
 
 	class Meta:
-		model = Customer
+		model = UserProfile
 		fields = ('address', 'town', 'county', 'post_code',
 		 'country', 'longitude', 'latitude','delivery_instructions','gender')

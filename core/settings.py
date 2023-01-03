@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'account',
     'prodect',
     'promotion',
+    'checkout',
+    'customer',
+    'orders',
     'mptt',
 ]
 
@@ -47,7 +50,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "tempalates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,9 +127,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 GOOGLE_API_KEY = "AIzaSyDq6b3Bm8EC9rqyGyGzA3fJ7hFd7BMq6uc"
 
-RECAPTCHA_KET = "6LdYWMUjAAAAABT4ug-cOumGWagi97UL-CSCaTJ4"
+RECAPTCHA_PUBLIC_KEY = "6LdYWMUjAAAAABT4ug-cOumGWagi97UL-CSCaTJ4"
 
-RECAPTCHA_SECRET_KET = "6LdYWMUjAAAAABbpu982HygZPQxPKnGiHW1b9ysk"
+RECAPTCHA_PRIVATE_KEY = "6LdYWMUjAAAAABbpu982HygZPQxPKnGiHW1b9ysk"
 
 
 # Basket session ID
