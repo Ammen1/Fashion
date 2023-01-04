@@ -130,10 +130,10 @@ class SignInView(AjaxFormMixin, FormView):
 	def form_valid(self, form):
 		response = super(AjaxFormMixin, self).form_valid(form)	
 		if self.request.is_ajax():
-			username = form.cleaned_data.get('username')
+			email = form.cleaned_data.get('email')
 			password = form.cleaned_data.get('password')
 			#attempt to authenticate user
-			user = authenticate(self.request, username=username, password=password)
+			user = authenticate(self.request, email=email, password=password)
 			if user is not None:
 				login(self.request, user)
 				result = "Success"
@@ -141,9 +141,9 @@ class SignInView(AjaxFormMixin, FormView):
 			else:
 				message = FormErrors(form)
 			data = {'result': result, 'message': message}
-			return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+			return JsonResponse(data)
 		return response
-    # def is_ajax(request):
+    # 
     # return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
@@ -153,6 +153,6 @@ def sign_out(request):
 	Basic view for user sign out
 	'''
 	logout(request)
-	return redirect(reverse('users:sign-in'))
+	return redirect(reverse('customer:sign-in'))
 
 

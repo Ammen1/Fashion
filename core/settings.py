@@ -26,9 +26,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheader',
+    
     'account',
     'prodect',
+    "corsheaders",
     'promotion',
     'checkout',
     'customer',
@@ -45,8 +46,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    # 'common.middleware.AjaxMiddleware',
  
 ]
 
@@ -69,7 +71,8 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'application'
+# WSGI_APPLICATION = 'application'
+# WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
@@ -165,3 +168,6 @@ BASE_COUNTRY = "ET"
 
 AUTH_USER_MODEL = 'account.User'
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGIN_REGEXES = []
+
