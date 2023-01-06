@@ -8,12 +8,12 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from orders.models import Order
-from orders.views import user_orders
+# from orders.models import Order
+# from orders.views import user_orders
 # from store.models import Product
 
-from .form import RegistrationForm, UserAddressForm, UserEditForm
-from .models import Address, Customer
+from .form import RegistrationForm
+from .models import  Customer
 from .tokens import account_activation_token
 
 from django.shortcuts import render, redirect, reverse

@@ -26,14 +26,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'account',
     'prodect',
-    "corsheaders",
     'promotion',
     'checkout',
-    'customer',
+    
     'orders',
+    'basket',
+  
     'mptt',
 ]
 
@@ -45,10 +45,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    # 'common.middleware.AjaxMiddleware',
  
 ]
 
@@ -72,7 +68,7 @@ TEMPLATES = [
 
 
 # WSGI_APPLICATION = 'application'
-# WSGI_APPLICATION = 'wsgi.application'
+# # WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
@@ -136,7 +132,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 GOOGLE_API_KEY = "AIzaSyDq6b3Bm8EC9rqyGyGzA3fJ7hFd7BMq6uc"
 
-RECAPTCHA_PUBLIC_KEY = "6LdYWMUjAAAAABT4ug-cOumGWagi97UL-CSCaTJ4"
+# RECAPTCHA_PUBLIC_KEY = "6LdYWMUjAAAAABT4ug-cOumGWagi97UL-CSCaTJ4"
 
 RECAPTCHA_PRIVATE_KEY = "6LdYWMUjAAAAABbpu982HygZPQxPKnGiHW1b9ysk"
 
@@ -147,9 +143,7 @@ BASKET_SESSION_ID = "basket"
 
 
 # # Custom user model
-# AUTH_USER_MODEL = "designer.Customer"
-# LOGIN_REDIRECT_URL = "/designer/dashboard"
-# LOGIN_URL = "/designer/login/"
+
 
 LOGIN_URL = "customer:sign-in"
 LOGIN_REDIRECT_URL = "customer:account"
@@ -167,7 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 BASE_COUNTRY = "ET" 
 
 AUTH_USER_MODEL = 'account.User'
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = []
-CORS_ALLOWED_ORIGIN_REGEXES = []
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOWED_ORIGINS = []
+# CORS_ALLOWED_ORIGIN_REGEXES = []
 

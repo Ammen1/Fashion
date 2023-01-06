@@ -20,17 +20,17 @@ def FormErrors(*args):
 	return message
 
 
-def reCAPTCHAValidation(token):
+# def reCAPTCHAValidation(token):
 
-	''' reCAPTCHA validation '''
-	result = requests.post(
-		'https://www.google.com/recaptcha/api/siteverify',
-		 data={
-		 	'secret': settings.RECAPTCHA_PRIVATE_KEY,
-			'response': token
-		 })
+# 	''' reCAPTCHA validation '''
+# 	result = requests.post(
+# 		'https://www.google.com/recaptcha/api/siteverify',
+# 		 data={
+# 		 	'secret': settings.RECAPTCHA_PRIVATE_KEY,
+# 			'response': token
+# 		 })
 
-	return result.json()
+# 	return result.json()
 
 
 
