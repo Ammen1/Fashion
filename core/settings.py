@@ -145,9 +145,9 @@ BASKET_SESSION_ID = "basket"
 # # Custom user model
 
 
-LOGIN_URL = "customer:sign-in"
-LOGIN_REDIRECT_URL = "customer:account"
-LOGOUT_REDIRECT_URL = "costomer:sign-in"
+# LOGIN_URL = "customer:sign-in"
+# LOGIN_REDIRECT_URL = "customer:account"
+# LOGOUT_REDIRECT_URL = "costomer:sign-in"
 
 
 # Email setting
@@ -164,4 +164,11 @@ AUTH_USER_MODEL = 'account.User'
 # CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOWED_ORIGINS = []
 # CORS_ALLOWED_ORIGIN_REGEXES = []
+
+AUTH_USER_MODEL = 'account.Customer'
+LOGIN_REDIRECT_URL = '/account/dashboard'
+LOGIN_URL = '/account/login/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

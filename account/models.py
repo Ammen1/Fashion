@@ -85,7 +85,7 @@ class SYADMIN(models.Model):
     objects = CustomAccountManager()
    
 
-class Customer(models.Model):
+class Customer(AbstractBaseUser):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     admin = models.OneToOneField(User, on_delete = models.CASCADE)
