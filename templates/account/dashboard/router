@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<h3>Django Google API Course - Routing</h3>
+<h3>Routing</h3>
 
 <div class="container">
 
