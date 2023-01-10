@@ -28,7 +28,7 @@ def route(request):
 	context = {
 	"google_api_key": settings.GOOGLE_API_KEY,
 	"base_country": settings.BASE_COUNTRY}
-	return render(request, 'main/route.html', context)
+	return render(request, 'dashboard/route.html', context)
 
 
 '''
@@ -77,7 +77,7 @@ def map(request):
 	"directions": directions,
 
 	}
-	return render(request, 'main/map.html', context)
+	return render(request, 'dashboard/map.html', context)
 
 
 def account_register(request):
