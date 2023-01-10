@@ -124,3 +124,12 @@ def account_activate(request, uidb64, token):
         return redirect("account:dashboard")
     else:
         return render(request, "account/registration/activation_invalid.html")
+
+
+@login_required
+def delete_user(request):
+    user = Customer.objects.get(user_name=request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect("account:delete_confirmation")
