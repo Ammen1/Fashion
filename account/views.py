@@ -90,7 +90,7 @@ def account_register(request):
         if registerForm.is_valid():
             user = registerForm.save(commit=False)
             user.email = registerForm.cleaned_data["email"]
-            user.has_secure_password(registerForm.cleaned_data["password"])
+            user.set_password(registerForm.cleaned_data["password"])
             user.is_active = False
             user.save()
             current_site = get_current_site(request)

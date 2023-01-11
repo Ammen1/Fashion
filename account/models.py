@@ -85,7 +85,7 @@ class SYADMIN(models.Model):
     objects = CustomAccountManager()
    
 
-class Customer(AbstractBaseUser):
+class Customer(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     admin = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -113,14 +113,6 @@ class Customer(AbstractBaseUser):
         verbose_name = "User"
         verbose_name_plural = "Users"
 
-    def email_user(self, subject, message):
-        send_mail(
-            subject,
-            message,
-            'abushguda214@gmail.com',
-            [self.email],
-            fail_silently=False,
-        )
 
     def __str__(self):
         return self.name
@@ -157,14 +149,6 @@ class Designer(models.Model):
         verbose_name = "User"
         verbose_name_plural = "Users"
 
-    def email_user(self, subject, message):
-        send_mail(
-            subject,
-            message,
-            'abushguda214@gmail.com',
-            [self.email],
-            fail_silently=False,
-        )
 
     def __str__(self):
         return self.name
@@ -187,7 +171,7 @@ class Designer(models.Model):
 #Creating Django Signals
 
 
-@receiver(post_save, sender=Customer)
+@receiver(post_save, sender=User)
 def create_user_profile(sender,instance,created, **kwargs):
     if created:
         if instance.user_type == 1:

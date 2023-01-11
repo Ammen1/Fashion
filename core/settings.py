@@ -165,7 +165,7 @@ AUTH_USER_MODEL = 'account.User'
 # CORS_ALLOWED_ORIGINS = []
 # CORS_ALLOWED_ORIGIN_REGEXES = []
 
-AUTH_USER_MODEL = 'account.Customer'
+AUTH_USER_MODEL = 'account.User'
 LOGIN_REDIRECT_URL = '/account/dashboard'
 LOGIN_URL = '/account/login/'
 

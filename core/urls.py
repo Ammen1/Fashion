@@ -6,10 +6,11 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("",include("store.urls", namespace="store")),
     path("prodect",include("prodect.urls", namespace="prodect")), #, namespace="prodect"
     path("checkout/", include("checkout.urls", namespace="checkout")),#, namespace="checkout"
     path("basket/", include("basket.urls", namespace="basket")),#, namespace="basket"
-    path("", include("account.urls", namespace="account")),#, namespace="account"
+    path("account", include("account.urls", namespace="account")),#, namespace="account"
     path("orders/", include("orders.urls", namespace="orders")),#, namespace="orders"
     # path("",include("customer.urls", namespace="customer")),#, namespace="customer"
     path("promotion/", include("promotion.urls", namespace="promotion"))#, namespace="promotion"
