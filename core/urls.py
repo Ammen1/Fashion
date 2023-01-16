@@ -12,8 +12,9 @@ urlpatterns = [
     path("basket/", include("basket.urls", namespace="basket")),#, namespace="basket"
     path("account", include("account.urls", namespace="account")),#, namespace="account"
     path("orders/", include("orders.urls", namespace="orders")),#, namespace="orders"
-    # path("",include("customer.urls", namespace="customer")),#, namespace="customer"
+    path("store",include("store.urls", namespace="store")),#, namespace="customer"
     path("promotion/", include("promotion.urls", namespace="promotion"))#, namespace="promotion"
+   
 
 ]
 

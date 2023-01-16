@@ -4,13 +4,13 @@
 
 {% block extend_head %}
 
-<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+{% comment %} <script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script> {% endcomment %}
 
 {% endblock %}
 
 {% block content %}
 
-<h3>Django Google API Course - Sign Up</h3>
+<h3> Sign Up</h3>
 
 <div class="container">
 
@@ -53,10 +53,10 @@
 
 {% block extend_footer %}
 
-<script type="text/javascript">
+{% comment %} <script type="text/javascript">
   // Create a variable that can be used in main.js
   var recaptcha_site_key = '{{recaptcha_site_key|safe}}'
-</script>
+</script> {% endcomment %}
 
 
 {% endblock %}

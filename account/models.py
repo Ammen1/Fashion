@@ -44,7 +44,7 @@ class CustomAccountManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     user_type_data = ((1,"SYADMIN"), (2, "Designer"), (3,"Customer"))
-    user_type = models.CharField(default=2, choices=user_type_data, max_length=10)
+    user_type = models.CharField(default=1, choices=user_type_data, max_length=10)
     username = None
 
     email = models.EmailField(_('email address'), unique=True)
@@ -79,7 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class SYADMIN(models.Model):
     id = models.AutoField(primary_key=True)
-    admin = models.OneToOneField(User, on_delete = models.CASCADE)
+    admin = models.ForeignKey(User, on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = CustomAccountManager()
@@ -88,7 +88,7 @@ class SYADMIN(models.Model):
 class Customer(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    admin = models.OneToOneField(User, on_delete = models.CASCADE)
+    admin = models.ForeignKey(User, on_delete = models.CASCADE)
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(max_length=150)
     mobile = models.CharField(max_length=20, blank=True)
@@ -124,7 +124,7 @@ class Designer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    admin = models.OneToOneField(User, on_delete = models.CASCADE)
+    admin = models.ForeignKey(User, on_delete = models.CASCADE)
     address = models.CharField(verbose_name="Address",max_length=100, null=True, blank=True)   
     town = models.CharField(verbose_name="Town/City",max_length=100, null=True, blank=True)
     county = models.CharField(verbose_name="County",max_length=100, null=True, blank=True)
@@ -150,11 +150,9 @@ class Designer(models.Model):
         verbose_name_plural = "Users"
 
 
-    def __str__(self):
-        return self.name
+  
 
-    def __str__(self):
-        return f'{self.user}'
+
 
 
 
