@@ -2,9 +2,9 @@
 {% if request.user.is_authenticated %}
 <ul class="sidenav">
   {% if request.path == "/" %}
-  <li><a class="active" href="">User Account</a></li>
+  <li><a class="active" href="{% url 'account:account' %}">User Account</a></li>
   {% else %}
-  <li><a href="{% url 'account:account' %}">User Account</a></li>
+  <li><a href="">User Account</a></li>
   {% endif %}
 
   {% if "profile" in request.path %}
@@ -44,7 +44,7 @@
   {% if "sign-up" in request.path %}
   <li><a class="active" href="{% url 'account:account_register' %}">Sign Up</a></li>
   {% else %}
-  <li><a href="{% url 'account:account_register' %}">Sign Up</a></li>
+  <li><a href="/">Sign Up</a></li>
   {% endif %}
 </ul>
 {% endif %}
