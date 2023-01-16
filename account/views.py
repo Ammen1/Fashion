@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 # from orders.models import Order
 # from orders.views import user_orders
-# from store.models import Product
+from store.models import Product
 
 from .form import RegistrationForm
 from .models import  Customer
@@ -78,6 +78,13 @@ def map(request):
 
 	}
 	return render(request, 'dashboard/map.html', context)
+
+@login_required
+def wishlist(request):
+    products = Product.objects.filter(users_wishlist=request.user)
+    return render(request, "account/dashboard/user_wish_list.html", {"wishlist": products})
+
+
 
 
 def account_register(request):
