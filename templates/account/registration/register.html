@@ -1,10 +1,24 @@
-{% extends "../sub_base.html" %}
-{% block title %}Register Account{% endblock %}
-{% block sub_content %}
+{% extends 'base.html' %}
+{% load static %}
 
-<form class="account-form" action="." method="post">
-  {% csrf_token %}
-  <h3 class="mb-2">Create an account</h3>
+
+{% block extend_head %}
+
+{% comment %} <script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script> {% endcomment %}
+
+{% endblock %}
+
+{% block content %}
+
+<h3> Sign Up</h3>
+
+<div class="container">
+
+
+  <form id="signupform" method="POST" action="/sign-up">
+    {% csrf_token %}
+
+    <h3 class="mb-2">Create an account</h3>
   <p class="mb-4">It's free and only takes a minute.</p>
 
   {% if form.errors %}
@@ -18,25 +32,52 @@
   {% endfor %}
   {% endif %}
 
+    
   <label>{{ form.user_name.label }}<span class="text-muted small">
       (Required)</span></label>
   {{ form.user_name }}
-  <label>{{ form.email.label}}<span class="text-muted small">
+
+<label>{{ form.email.label}}<span class="text-muted small">
       (Required)</span></label>
   {{ form.email }}
   <label>{{ form.password.label}}<span class="text-muted mb-4">
     </span></label>
-  <small class="form-text text-muted mb-4 small">
+
+    <small class="form-text text-muted mb-4 small">
     At least 8 characters and 1 digit
   </small>
+
   {{ form.password }}
-  <label>{{ form.password2.label}}<span class="text-muted small">
+<label>{{ form.password2.label}}<span class="text-muted small">
       (Required)</span></label>
   {{ form.password2 }}
   <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Register</button>
-  <p class="text-center">
-    <a href="">Already have an account?</a>
+   <p class="text-center">
+    <a href="% url 'account:login' %}">Already have an account?</a>
   </p>
-</form>
+{{form.token}}
+
+    <label class="check-container">Show Passwords
+     <input type="checkbox" onclick="showPword()">
+     <span class="checkmark"></span>
+    </label>
+
+    <button type="submit">Sign up</button>
+
+  </form>
+</div>
+
+
+</div>
+
+{% endblock %}
+
+{% block extend_footer %}
+
+ {% comment %} <script type="text/javascript">
+  // Create a variable that can be used in main.js
+  var recaptcha_site_key = '{{recaptcha_site_key|safe}}'
+</script> {% endcomment %}
+
 
 {% endblock %}

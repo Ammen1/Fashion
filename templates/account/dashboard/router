@@ -53,7 +53,7 @@
 
     </script>
 
-  <script src="{% static 'google_places_waypoints.js' %}"></script>
+  <script src="{% static 'core/map/google_places_waypoints.js' %}"></script>
 
 
 {% endblock %}
