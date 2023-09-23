@@ -11,6 +11,8 @@ from .models import Category, Product
 # from .models import ProductImage
 
 
+
+
 def product_all(request):
     if 'q' in request.GET:
         q = request.GET['q']
