@@ -23,11 +23,13 @@
         {% for product in products %}
         <div class="col">
           <div class="card border-0">
-            {% for image in product.product_image.all %}
+            <a href="{{ product.get_absolute_url }}">            {% for image in product.product_image.all %}
             {% if image.is_feature%}
-            <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+            <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}"
             {% endif %}
-            {% endfor %}
+            {% endfor %}>
+          </a>
+
             <div class="card-body px-0">
               <p class="card-text">
                 <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>

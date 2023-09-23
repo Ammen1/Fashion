@@ -2,7 +2,7 @@
 {% block title %}Log-in{% endblock %}
 {% block sub_content %}
 
-<form class="account-form" id="signinform" action="{% url 'account:login' %}" method="post">
+<form class="account-form" action="{% url 'account:login' %}" method="post">
   {% csrf_token %}
   <h3 class="mb-4">Sign In</h3>
   {% if form.errors %}
@@ -16,11 +16,6 @@
   {{ form.password}}
   <div class="d-grid gap-2">
     <input type="hidden" name="next" value="{{ next }}">
-  <label class="check-container">Show Passwords
-    <input type="checkbox" onclick="showPword()">
-    <span class="checkmark"></span>
-  </label>
-
     <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Sign in
     </button>
   </div>

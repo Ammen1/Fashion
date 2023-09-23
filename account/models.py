@@ -1,19 +1,13 @@
 import uuid
 
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
-)
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.core.mail import send_mail
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
 class CustomAccountManager(BaseUserManager):
-
 
     def create_superuser(self, email, name, password, **other_fields):
 
@@ -29,7 +23,7 @@ class CustomAccountManager(BaseUserManager):
                 'Superuser must be assigned to is_superuser=True.')
 
         return self.create_user(email, name, password, **other_fields)
-        
+
     def create_user(self, email, name, password, **other_fields):
 
         if not email:
@@ -42,11 +36,8 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
-class User(AbstractBaseUser, PermissionsMixin):
-    user_type_data = ((1,"SYADMIN"), (2, "Designer"), (3,"Customer"))
-    user_type = models.CharField(default=1, choices=user_type_data, max_length=10)
-    username = None
 
+class Customer(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(max_length=150)
     mobile = models.CharField(max_length=20, blank=True)
@@ -58,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    REQUIRED_FIELDS = ['user_name']
 
     class Meta:
         verbose_name = "Accounts"
@@ -68,123 +59,35 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(
             subject,
             message,
-            'amenguda@gmail.com.com',
+            'djangoabush@gmail.com',
             [self.email],
             fail_silently=False,
         )
 
     def __str__(self):
-        return self.name
+        return self.email
 
-
-class SYADMIN(models.Model):
-    id = models.AutoField(primary_key=True)
-    admin = models.ForeignKey(User, on_delete = models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = CustomAccountManager()
-   
-
-class Customer(models.Model):
+class Address(models.Model):
+    """
+    Address
+    """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    admin = models.ForeignKey(User, on_delete = models.CASCADE)
-    email = models.EmailField(_('email address'), unique=True)
-    name = models.CharField(max_length=150)
-    mobile = models.CharField(max_length=20, blank=True)
-    address = models.CharField(verbose_name="Address",max_length=100, null=True, blank=True)   
-    town = models.CharField(verbose_name="Town/City",max_length=100, null=True, blank=True)
-    county = models.CharField(verbose_name="County",max_length=100, null=True, blank=True)
-    post_code = models.CharField(verbose_name="Post Code",max_length=8, null=True, blank=True)
-    country = models.CharField(verbose_name="Country",max_length=100, null=True, blank=True)
-    longitude = models.CharField(verbose_name="Longitude",max_length=50, null=True, blank=True)
-    latitude = models.CharField(verbose_name="Latitude",max_length=50, null=True, blank=True)
-    is_active = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    objects = CustomAccountManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    customer = models.ForeignKey(Customer, verbose_name=_("Customer"), on_delete=models.CASCADE)
+    full_name = models.CharField(_("Full Name"), max_length=150)
+    phone = models.CharField(_("Phone Number"), max_length=50)
+    postcode = models.CharField(_("Postcode"), max_length=50)
+    address_line = models.CharField(_("Address Line 1"), max_length=255)
+    address_line2 = models.CharField(_("Address Line 2"), max_length=255)
+    town_city = models.CharField(_("Town/City/State"), max_length=150)
+    delivery_instructions = models.CharField(_("Delivery Instructions"), max_length=255)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    default = models.BooleanField(_("Default"), default=False)
 
     class Meta:
-        verbose_name = "User"
-        verbose_name_plural = "Users"
-
+        verbose_name = "Address"
+        verbose_name_plural = "Addresses"
 
     def __str__(self):
-        return self.name
-
-
-
-
-class Designer(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    admin = models.ForeignKey(User, on_delete = models.CASCADE)
-    address = models.CharField(verbose_name="Address",max_length=100, null=True, blank=True)   
-    town = models.CharField(verbose_name="Town/City",max_length=100, null=True, blank=True)
-    county = models.CharField(verbose_name="County",max_length=100, null=True, blank=True)
-    post_code = models.CharField(verbose_name="Post Code",max_length=8, null=True, blank=True)
-    country = models.CharField(verbose_name="Country",max_length=100, null=True, blank=True)
-    longitude = models.CharField(verbose_name="Longitude",max_length=50, null=True, blank=True)
-    latitude = models.CharField(verbose_name="Latitude",max_length=50, null=True, blank=True)
-    delivery_instructions = models.CharField(_("Delivery Instructions"), max_length=255)
-    gender = models.CharField(max_length=50)
-    profile_pic = models.FileField()
-    captcha_score = models.FloatField(default = 0.0)
-    has_profile = models.BooleanField(default = False)
-    is_active = models.BooleanField(default = True)
-
-    objects = CustomAccountManager()
-
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
-
-    class Meta:
-        verbose_name = "User"
-        verbose_name_plural = "Users"
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#Creating Django Signals
-
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender,instance,created, **kwargs):
-    if created:
-        if instance.user_type == 1:
-            SYADMIN.objects.create(admin=instance)
-        if instance.user_type == 2:
-            Designer.objects.create(admin=instance)
-        if instance.user_type == 3:
-            Customer.objects.create(admin=instance)
-
-
-def save_user_profile(sender , instance , **kwargs):
-    if instance.user_type == 1:
-        instance.syadmin.save()
-
-    if instance.user_type == 2:
-        instance.designer.save()
-    if instance.user_type == 3:
-        instance.customer.save()
+        return "Address"

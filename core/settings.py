@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from . info import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,21 +21,22 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'account',
-    'prodect',
-    'promotion',
-    'checkout',
     'store',
-    'orders',
     'basket',
-  
+    'account',
+    'orders',
     'mptt',
+    "core",
+    'checkout',
+    'chapa_payment',
+
 ]
 
 MIDDLEWARE = [
@@ -45,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
- 
+
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -61,6 +63,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'store.context_processors.categories',
+                'basket.context_processors.basket',
             ],
         },
     },
@@ -130,16 +134,15 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 
-GOOGLE_API_KEY = "AIzaSyDq6b3Bm8EC9rqyGyGzA3fJ7hFd7BMq6uc"
+# GOOGLE_API_KEY = "AIzaSyDq6b3Bm8EC9rqyGyGzA3fJ7hFd7BMq6uc"
 
-# RECAPTCHA_PUBLIC_KEY = "6LdYWMUjAAAAABT4ug-cOumGWagi97UL-CSCaTJ4"
+# # RECAPTCHA_PUBLIC_KEY = "6LdYWMUjAAAAABT4ug-cOumGWagi97UL-CSCaTJ4"
 
-RECAPTCHA_PRIVATE_KEY = "6LdYWMUjAAAAABbpu982HygZPQxPKnGiHW1b9ysk"
+# RECAPTCHA_PRIVATE_KEY = "6LdYWMUjAAAAABbpu982HygZPQxPKnGiHW1b9ysk"
 
 
 # Basket session ID
 BASKET_SESSION_ID = "basket"
-
 
 
 # # Custom user model
@@ -158,17 +161,27 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BASE_COUNTRY = "ET" 
+BASE_COUNTRY = "ET"
 
-AUTH_USER_MODEL = 'account.User'
-# CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOWED_ORIGINS = []
-# CORS_ALLOWED_ORIGIN_REGEXES = []
-
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account.Customer'
 LOGIN_REDIRECT_URL = '/account/dashboard'
 LOGIN_URL = '/account/login/'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+
+CHAPA_SECRET = "CHASECK_TEST-dcWpiCHYOU4sEBOIz7WPmWzjN7tjqg5L"
+CHAPA_PUBLIC_KEY = 'CHAPUBK_TEST-EdQ9zt1Qmh7pU96NQPwxqXntllv9oSei'
+CHAPA_API_URL = 'https://api.chapa.dev'
+CHAPA_WEBHOOK_URL = 'http://127.0.0.1:8000/'
+CHAPA_API_VERSION = 'v1'
+CHAPA_TRANSACTION_MODEL = 'chapa_payment.ChapaTransaction'
+
+EMAIL_BACKEND = EMAIL_BACKEND
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = EMAIL_PORT
+DEFAULT_FROM_EMAIL = DEFAULT_FROM_EMAIL
